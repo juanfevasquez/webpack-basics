@@ -1,32 +1,15 @@
-import '../css/styles.css';
+const outputParagraph = document.querySelector('.outputParagraph');
 
-import {secretButton, secretMessage} from './dom-loader';
-
-var showSecret = false;
-
-secretButton.addEventListener('click', toggleSecretState);
-udpateSecretMessage();
-
-function toggleSecretState() {
-    showSecret = !showSecret;
-    udpateSecretMessage();
-    updateSecretButton();
+const outputRandomInt = () => {
+  outputParagraph.textContent = RandomGenerator.randomInteger();
 }
 
-function updateSecretButton() {
-    if (showSecret) {
-        secretButton.textContent = 'Hide the Secret';
-    } else {
-        secretButton.textContent = 'Show the Secret';
-    }
+const outputRandomRange = () => {
+  outputParagraph.textContent = RandomGenerator.randomRange(1, 500);
 }
 
-function udpateSecretMessage() {
-    if (showSecret) {
-        secretMessage.style.display = 'block';
-    } else {
-        secretMessage.style.display = 'none';
-    }
-}
+const buttonRandomInt = document.querySelector('.randomInt');
+const buttonRandomRange = document.querySelector('.randomRange');
 
-console.log('Ok');
+buttonRandomInt.addEventListener('click', outputRandomInt);
+buttonRandomRange.addEventListener('click', outputRandomRange);
