@@ -1,6 +1,8 @@
-var path = require('path');
+const path = require('path');
+const CssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
+  mode: 'production',
   entry: './src/js/app.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -10,17 +12,30 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.css$/,
+        test: /\.js$/,
         use: [
-          'style-loader',
-          'css-loader'
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: ['es2015']
+            }
+          }
+        ]
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          CssExtractPlugin.loader,
+          'css-loader', 
+          'sass-loader'
         ]
       }
     ]
   },
   plugins: [
-    new webpack.optimize.uglifyJsPlugin({
-      // ...
+    new CssExtractPlugin({
+      filename: 'main.css',
+      chunkFilename: 'main.css'
     })
   ]
 }
